@@ -1,0 +1,16 @@
+{
+  "name": "Home Huddle",
+  "short_name": "HomeHuddle",
+  "description": "All-in-one daily assistant for home, pets, and shared living.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f9fb",
+  "theme_color": "#006b8f",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "48x48 64x64 96x96 128x128 256x256",
+      "type": "image/x-icon"
+    }
+  ]
+}
