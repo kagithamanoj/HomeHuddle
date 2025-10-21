@@ -1,0 +1,106 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// 1. Define the database connection
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// 2. Define the Prisma Client generator
+generator client {
+  provider = "prisma-client-js"
+}
+
+// 3. Define your data models
+
+model User {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  name      String
+  avatarUrl String?
+
+  // --- Relationships ---
+  // A user can be assigned many tasks
+  tasksAssigned Task[]
+  // A user can pay for many expenses
+  expensesPaid  Expense[] @relation("PaidBy")
+  // A user can participate in many expenses (many-to-many)
+  expensesParticipating Expense[]
+  // A user can own many pets
+  pets          Pet[]
+}
+
+model Task {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  dueDate     DateTime
+  completed   Boolean  @default(false)
+
+  // --- Relationships ---
+  // Each task is assigned to one user
+  assignedToId String
+  assignedTo   User   @relation(fields: [assignedToId], references: [id])
+}
+
+enum ExpenseCategory {
+  rent
+  utilities
+  groceries
+  subscription
+  other
+}
+
+model Expense {
+  id         String          @id @default(cuid())
+  name       String
+  amount     Float
+  dueDate    DateTime
+  paid       Boolean         @default(false)
+  category   ExpenseCategory @default(other)
+  notes      String?
+
+  // --- Relationships ---
+  // Each expense is paid by one user
+  paidById   String
+  paidBy     User     @relation("PaidBy", fields: [paidById], references: [id])
+  // Many users can participate in one expense
+  participants User[]
+}
+
+model Pet {
+  id      String   @id @default(cuid())
+  name    String
+  species String
+  age     Int
+
+  // --- Relationships ---
+  // Each pet has one owner
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id])
+  // A pet can have many medical records
+  medicalRecords MedicalRecord[]
+}
+
+model MedicalRecord {
+  id    String   @id @default(cuid())
+  type  String // e.g., "Vaccination", "Check-up", "Medication"
+  date  DateTime
+  notes String?
+
+  // --- Relationships ---
+  // Each record belongs to one pet
+  petId String
+  pet   Pet    @relation(fields: [petId], references: [id])
+}
+
+model Appliance {
+    id String @id @default(cuid())
+    name String
+    status String // e.g., "OK", "Service Due", "Broken"
+    lastServiced DateTime
+    
+    // In a real app, you might link this to a "Household"
+    // For now, we'll keep it simple.
+}

@@ -1,21 +1,38 @@
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
 import { fetchAppliances } from "../../api/home";
-import { useQuery } from "react-query";
 import Loader from "../../components/Loader";
 
-const ApplianceList: React.FC = () => {
-  const { data, isLoading, error } = useQuery("appliances", fetchAppliances);
+// Define a type for the appliance data for better code safety
+interface Appliance {
+  id: number | string;
+  name: string;
+  lastServiced: string; // Dates from an API are typically strings
+}
 
-  if (isLoading) return <Loader />;
-  if (error) return <p>Error loading appliances.</p>;
+const ApplianceList: React.FC = () => {
+  // Updated useQuery to use the new object syntax with a typed key
+  const { data, isLoading, error } = useQuery<Appliance[], Error>({
+    queryKey: ["appliances"],
+    queryFn: fetchAppliances,
+  });
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <p>Error loading appliances: {error.message}</p>;
+  }
 
   return (
     <div>
       <h2>Registered Appliances</h2>
       <ul>
-        {data?.map(appliance => (
+        {data?.map((appliance) => (
           <li key={appliance.id}>
-            {appliance.name} — Serviced: {new Date(appliance.lastServiced).toLocaleDateString()}
+            {appliance.name} — Serviced:{" "}
+            {new Date(appliance.lastServiced).toLocaleDateString()}
           </li>
         ))}
       </ul>

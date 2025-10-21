@@ -1,0 +1,9 @@
+{
+  "name": "home-huddle-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ]
+}

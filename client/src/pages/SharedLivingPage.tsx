@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import SharedLivingDashboard from "../features/shared-living/SharedLivingDashboard";
+import SharedLivingDashboard from "../features/sharedLiving/SharedLivingDashboard";
 
 const SharedLivingPage: React.FC = () => (
   <>

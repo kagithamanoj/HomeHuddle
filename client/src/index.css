@@ -1,0 +1,68 @@
+/* --- CSS Variables for Theming --- */
+/* Define your color palette and fonts here for easy access. */
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  
+  --color-background: #ffffff;
+  --color-background-soft: #f8f9fa;
+  --color-text: #212529;
+  --color-primary: #007bff;
+  --color-border: #dee2e6;
+  --color-error: #e53935;
+}
+
+/* Add this for a dark mode theme later */
+/*
+body.dark-mode {
+  --color-background: #121212;
+  --color-background-soft: #1e1e1e;
+  --color-text: #e0e0e0;
+  --color-primary: #58a6ff;
+  --color-border: #30363d;
+}
+*/
+
+
+/* --- Modern CSS Reset --- */
+/* This removes default browser styles for a consistent look. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* --- Global Styles --- */
+/* Set up your base styles for the whole application. */
+body {
+  line-height: 1.6;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  min-height: 100vh;
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
